@@ -1,37 +1,59 @@
 package school.ahs.ORLIK.Runtime;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Constructor {
 
     public final String identifier;
     public final Block block;
-    public final List<Variable> params;
+    public final List<Parameter> parameters;
+    public final Blueprint blueprint;
 
     public Constructor() {
-        this.identifier = null;
+        this.identifier = "";
         this.block = new Block();
-        this.params = new ArrayList<>();
+        this.parameters = new ArrayList<>();
+        this.blueprint = new Blueprint();
     }
 
-    public Constructor(String identifier, Block block, List<Variable> params) {
+    public Constructor(String identifier, Block block, List<Parameter> parameters, Blueprint blueprint) {
         this.identifier = identifier;
         this.block = block;
-        this.params = new ArrayList<>(params);
-    }
-
-    public String getIdentifier() {
-        return identifier;
+        this.parameters = new ArrayList<>(parameters);
+        this.blueprint = blueprint;
     }
 
     public Block getBlock() {
         return block;
     }
 
-    public List<Variable> getParams() {
-        return params;
+    public List<Parameter> getParameters() {
+        return parameters;
+    }
+
+    public Thing construct(List<Thing> things) throws IllegalArgumentException {
+        if (parameters.size() != things.size()) {
+            throw new IllegalArgumentException("Invalid number of arguments.");
+        }
+
+        Set<Variable> variables = new HashSet<>();
+        Iterator<Thing> thingIterator = things.iterator();
+        Iterator<Parameter> parameterIterator = parameters.iterator();
+        while (thingIterator.hasNext() && parameterIterator.hasNext()) {
+            Thing thing = thingIterator.next();
+            Parameter parameter = parameterIterator.next();
+            if (thing.blueprint != parameter.blueprint) {
+                throw new IllegalArgumentException("Invalid argument blueprints.");
+            }
+
+            variables.add(new Variable(parameter.identifier, thing));
+        }
+
+        Thing thing = new Thing(blueprint, variables, blueprint.functions);
+
+        block.execute(variables);
+
+        return thing;
     }
 
     @Override
@@ -39,14 +61,14 @@ public class Constructor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Constructor that = (Constructor) o;
-        return Objects.equals(identifier, that.identifier) &&
-                Objects.equals(block, that.block) &&
-                Objects.equals(params, that.params);
+        return Objects.equals(block, that.block) &&
+                Objects.equals(parameters, that.parameters) &&
+                Objects.equals(blueprint, that.blueprint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identifier, block, params);
+        return Objects.hash(block, parameters, blueprint);
     }
 
 }

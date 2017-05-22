@@ -7,15 +7,18 @@ import java.util.Set;
 
 public class Thing {
 
-    final Set<Variable> variables;
-    final Set<Function> functions;
+    public final Blueprint blueprint;
+    public final Set<Variable> variables;
+    public final Set<Function> functions;
 
     public Thing() {
+        this.blueprint = new Blueprint();
         this.variables = new HashSet<>();
         this.functions = new HashSet<>();
     }
 
-    public Thing(Set<Variable> variables, Set<Function> functions) {
+    public Thing(Blueprint blueprint, Set<Variable> variables, Set<Function> functions) {
+        this.blueprint = blueprint;
         this.variables = new HashSet<>(variables);
         this.functions = new HashSet<>(functions);
     }

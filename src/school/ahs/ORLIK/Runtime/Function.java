@@ -1,25 +1,23 @@
 package school.ahs.ORLIK.Runtime;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Function {
 
     public final String identifier;
     public final Block block;
-    public final List<Variable> params;
+    public final List<Parameter> parameters;
 
     public Function() {
         this.identifier = null;
         this.block = new Block();
-        this.params = new ArrayList<>();
+        this.parameters = new ArrayList<>();
     }
 
-    public Function(String identifier, Block block, List<Variable> params) {
+    public Function(String identifier, Block block, List<Parameter> parameters) {
         this.identifier = identifier;
         this.block = block;
-        this.params = new ArrayList<>(params);
+        this.parameters = new ArrayList<>(parameters);
     }
 
     public String getIdentifier() {
@@ -28,6 +26,27 @@ public class Function {
 
     public Block getBlock() {
         return block;
+    }
+
+    public void call(List<Thing> things) {
+        if (parameters.size() != things.size()) {
+            throw new IllegalArgumentException("Invalid number of arguments.");
+        }
+
+        Set<Variable> variables = new HashSet<>();
+        Iterator<Thing> thingIterator = things.iterator();
+        Iterator<Parameter> parameterIterator = parameters.iterator();
+        while (thingIterator.hasNext() && parameterIterator.hasNext()) {
+            Thing thing = thingIterator.next();
+            Parameter parameter = parameterIterator.next();
+            if (thing.blueprint != parameter.blueprint) {
+                throw new IllegalArgumentException("Invalid argument blueprints.");
+            }
+
+            variables.add(new Variable(parameter.identifier, thing));
+        }
+
+        block.execute(variables);
     }
 
     @Override
