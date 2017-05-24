@@ -7,20 +7,20 @@ public class Blueprint {
     public final String identifier;
     public final Set<Constructor> constructors;
     public final Set<Function> functions;
-    public final Set<Variable> variables;
+    public final Set<Parameter> fields;
 
     public Blueprint() {
         this.identifier = "";
         this.constructors = new HashSet<>();
         this.functions = new HashSet<>();
-        this.variables = new HashSet<>();
+        this.fields = new HashSet<>();
     }
 
-    public Blueprint(String identifier, List<Constructor> constructors, List<Function> functions, List<Variable> variables) {
+    public Blueprint(String identifier, List<Constructor> constructors, List<Function> functions, List<Parameter> fields) {
         this.identifier = identifier;
         this.constructors = new HashSet<>(constructors);
         this.functions = new HashSet<>(functions);
-        this.variables = new HashSet<>(variables);
+        this.fields = new HashSet<>(fields);
     }
 
     public Set<Constructor> getConstructors() {
@@ -35,8 +35,16 @@ public class Blueprint {
         return functions;
     }
 
-    public Set<Variable> getVariables() {
-        return variables;
+    public Optional<Function> getFunction(String identifier) {
+        return functions.stream().filter(f -> f.identifier.equals(identifier)).findFirst();
+    }
+
+    public Set<Parameter> getFields() {
+        return fields;
+    }
+
+    public Optional<Function> getField(String identifier) {
+
     }
 
 }

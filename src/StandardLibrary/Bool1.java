@@ -2,15 +2,15 @@ package StandardLibrary;
 
 import java.util.Objects;
 
-public class Int32 {
+public class Bool1 {
 
-    public final int value;
+    public final boolean value;
 
-    public Int32(String statement, Runtime runtime) {
-        value = Integer.parseInt(statement);
+    public Bool1(String statement, Runtime runtime) {
+        this.value = Boolean.parseBoolean(statement);
     }
 
-    public int getValue() {
+    public boolean isValue() {
         return value;
     }
 
@@ -18,13 +18,12 @@ public class Int32 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Int32 int32 = (Int32) o;
-        return value == int32.value;
+        Bool1 bool1 = (Bool1) o;
+        return value == bool1.value;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
-
 }

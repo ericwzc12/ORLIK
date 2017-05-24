@@ -1,10 +1,6 @@
 package school.ahs.ORLIK.Runtime;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import com.sun.tools.corba.se.idl.InvalidArgument;
-
 import java.util.Set;
-import java.util.function.Supplier;
 
 public class Assignment implements Instruction {
 
