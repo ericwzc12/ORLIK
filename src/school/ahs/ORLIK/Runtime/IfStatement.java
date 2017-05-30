@@ -9,7 +9,7 @@ public class IfStatement implements Instruction{
     private Block block;
     private String statement;
 
-    private IfStatement(String statement, Runtime runtime, Block block) throws IllegalArgumentException{
+    public IfStatement(String statement, Runtime runtime, Block block) throws IllegalArgumentException{
 
         this.block = block;
         this.statement = statement.replace(" ", "");
