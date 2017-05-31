@@ -1,8 +1,9 @@
 package StandardLibrary;
 
 import java.util.Objects;
+import school.ahs.ORLIK.Runtime.Thing;
 
-public class Bool1 {
+public class Bool1 extends Thing {
 
     public final boolean value;
 
@@ -10,7 +11,7 @@ public class Bool1 {
         this.value = Boolean.parseBoolean(statement);
     }
 
-    public boolean isValue() {
+    public boolean getValue() {
         return value;
     }
 

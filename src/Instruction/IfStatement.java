@@ -1,6 +1,7 @@
 package Instruction;
 
 
+import StandardLibrary.Bool1;
 import school.ahs.ORLIK.Runtime.Block;
 import school.ahs.ORLIK.Runtime.Instruction;
 import school.ahs.ORLIK.Runtime.Runtime;
@@ -13,11 +14,13 @@ public class IfStatement implements Instruction{
 
     private Block block;
     private String statement;
+    private String expressions;
 
     public IfStatement(String statement, Runtime runtime, Block block) throws IllegalArgumentException{
 
         this.block = block;
         this.statement = statement.replace(" ", "");
+        expressions = "&& || == !=";
         validate();
         System.out.print("If statement successfully created");
 
@@ -56,24 +59,40 @@ public class IfStatement implements Instruction{
     @Override
     public void execute(Set<Variable> variables) {
 
-
+        recursiveEval(statement.substring(15), variables);
 
     }
 
-    private boolean eval(Set<Variable> variables){
+    private boolean recursiveEval(String expression, Set<Variable> variables){
 
-        Stack<Character> expressions = new Stack<>();
-        Stack<String> first = new Stack<>();
+        Stack<Integer> parentheses = new Stack<>();
 
-        for(int i = 15; i < statement.length(); i++){
-
-            if(statement.charAt(i) == '('){
-                first.push(statement.substring(i+1, endOfTerm(i+1)));
+        for(int i = 1; i < expression.length() - 1; i++){
+            if(expression.charAt(i) == '('){
+                parentheses.push(0);
+            } else if(expression.charAt(i) == ')'){
+                parentheses.pop();
+            } else if(parentheses.isEmpty() && expressions.contains(expression.substring(i, i+2))){
+                switch( expression.substring(i, i+2)){
+                    case "==": return recursiveEval(expression.substring(1, i), variables) == recursiveEval(expression.substring(i+2, expression.length() - 1), variables);
+                    case "&&": return recursiveEval(expression.substring(1, i), variables) && recursiveEval(expression.substring(i+2, expression.length() - 1), variables);
+                    case "||": return recursiveEval(expression.substring(1, i), variables) || recursiveEval(expression.substring(i+2, expression.length() - 1), variables);
+                    case "!=": return recursiveEval(expression.substring(1, i), variables) != recursiveEval(expression.substring(i+2, expression.length() - 1), variables);
+                }
             }
-
+        }
+        switch(expression){
+            case "true": return true;
+            case "false": return false;
+            default: return ((Bool1)getVariable(expression, variables).getThing()).getValue();
         }
 
     }
+
+    private Variable getVariable(String identifier, Set<Variable> variables) {
+        return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst().get();
+    }
+
 
     private int endOfTerm(int beginIndex){
 
@@ -82,12 +101,6 @@ public class IfStatement implements Instruction{
             i++;
         }
         return i;
-
-    }
-
-    public static void main(String[] args){
-
-        IfStatement test = new IfStatement("anybodywantsome(x < y)", new Block(), new Runtime());
 
     }
 
