@@ -1,9 +1,6 @@
 package school.ahs.ORLIK.Runtime;
 
-import Util.Tuple;
-
 import java.io.File;
-import java.io.InputStream;
 import java.util.*;
 
 public class Runtime extends Block implements Instruction {
@@ -28,7 +25,7 @@ public class Runtime extends Block implements Instruction {
 
     private Instruction getInstruction(String str) {
         try {
-            return new Assignment(str, this);
+            return new Instruction.Assignment(str, this);
         } catch (Exception e) {
             return null;
         }
@@ -36,7 +33,7 @@ public class Runtime extends Block implements Instruction {
 
     private Instruction getInstruction(String str, Block block) {
         try {
-            return new IfStatement(str, this, block);
+            return new Instruction.IfStatement(str, this, block);
         } catch (Exception e) {
             return null;
         }

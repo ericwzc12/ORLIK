@@ -1,4 +1,7 @@
-package school.ahs.ORLIK.Runtime;
+package Instruction;
+
+import school.ahs.ORLIK.Runtime.*;
+import school.ahs.ORLIK.Runtime.Runtime;
 
 import java.util.Set;
 

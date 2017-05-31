@@ -1,5 +1,10 @@
-package school.ahs.ORLIK.Runtime;
+package Instruction;
 
+
+import school.ahs.ORLIK.Runtime.Block;
+import school.ahs.ORLIK.Runtime.Instruction;
+import school.ahs.ORLIK.Runtime.Runtime;
+import school.ahs.ORLIK.Runtime.Variable;
 
 import java.util.Set;
 import java.util.Stack;
