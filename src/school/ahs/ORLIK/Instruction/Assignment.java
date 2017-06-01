@@ -1,4 +1,4 @@
-package Instruction;
+package school.ahs.ORLIK.Instruction;
 
 import school.ahs.ORLIK.Runtime.*;
 import school.ahs.ORLIK.Runtime.Runtime;
@@ -6,11 +6,6 @@ import school.ahs.ORLIK.Runtime.Runtime;
 import java.util.Set;
 
 public class Assignment implements Instruction {
-
-    public static void main(String[] args) {
-        new Assignment("", new Runtime(System.in)).validateIndexes(0, 1, 2, 3, 4);
-
-    }
 
     public final Constructor constructor;
     public final String identifier;

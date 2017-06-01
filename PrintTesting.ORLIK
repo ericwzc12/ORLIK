@@ -1,0 +1,7 @@
+anybodywantsome(true) {
+    print(Hello world!)
+}
+anybodywantsome(false) {
+    print(Goodbye World!)
+}
+

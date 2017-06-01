@@ -1,11 +1,11 @@
-package Instruction;
+package school.ahs.ORLIK.Instruction;
 
-
-import StandardLibrary.Bool1;
+import school.ahs.ORLIK.StandardLibrary.Bool1;
 import school.ahs.ORLIK.Runtime.Block;
 import school.ahs.ORLIK.Runtime.Instruction;
 import school.ahs.ORLIK.Runtime.Runtime;
 import school.ahs.ORLIK.Runtime.Variable;
+import school.ahs.ORLIK.StandardLibrary.Int32;
 
 import java.util.Set;
 import java.util.Stack;
@@ -84,9 +84,8 @@ public class IfStatement implements Instruction{
         switch(expression){
             case "true": return true;
             case "false": return false;
-            default: return ((Bool1)getVariable(expression, variables).getThing()).getValue();
+            default: return ((Int32)getVariable(expression, variables).getThing()).getValue() != 0;
         }
-
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {

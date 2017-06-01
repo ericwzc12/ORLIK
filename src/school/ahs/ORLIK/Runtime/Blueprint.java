@@ -43,8 +43,8 @@ public class Blueprint {
         return fields;
     }
 
-    public Optional<Function> getField(String identifier) {
-
+    public Optional<Parameter> getField(String identifier) {
+        return fields.stream().filter(f -> f.identifier.equals(identifier)).findFirst();
     }
 
 }
