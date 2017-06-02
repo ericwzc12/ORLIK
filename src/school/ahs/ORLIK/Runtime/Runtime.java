@@ -22,6 +22,7 @@ public class Runtime extends Block implements Instruction {
     }
 
     private Instruction getInstruction(String str) {
+        System.err.println("Get instruction of " + str);
         try {
             return new Assignment(str, this);
         } catch (Exception e1) {
@@ -34,6 +35,7 @@ public class Runtime extends Block implements Instruction {
     }
 
     private Instruction getInstruction(String str, Block block) {
+        System.err.println("Get instruction of " + str + " with block");
         try {
             return new IfStatement(str, this, block);
         } catch (Exception e) {

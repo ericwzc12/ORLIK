@@ -12,7 +12,7 @@ public class Int32 extends Thing {
     public int value;
 
     public Int32(int value) {
-        value = 0;
+        this.value = value;
     }
 
     public int getValue() {
