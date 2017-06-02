@@ -1,7 +1,4 @@
-anybodywantsome(true) {
-    print(Hello world!)
-}
-anybodywantsome(false) {
-    print(Goodbye World!)
+anybodywantsome(((true && (true!= false)) && ((true&&true) || false)) == true) {
+    print(Hello world!);
 }
 

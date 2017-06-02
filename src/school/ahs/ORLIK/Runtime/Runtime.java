@@ -79,8 +79,8 @@ public class Runtime extends Block implements Instruction {
             i.execute(variables);
         } else if (nextBrace != -1) {
             int braceCount = 1;
-            int closeBrace = nextBrace + 1;
-            while (braceCount > 0 && closeBrace != code.length()) {
+            int closeBrace = nextBrace;
+            while (braceCount > 0 && closeBrace < code.length() - 1) {
                 closeBrace += 1;
                 if (code.charAt(closeBrace) == '}') {
                     braceCount -= 1;
