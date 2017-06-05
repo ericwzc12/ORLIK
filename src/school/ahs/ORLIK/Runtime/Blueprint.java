@@ -2,25 +2,14 @@ package school.ahs.ORLIK.Runtime;
 
 import java.util.*;
 
-public class Blueprint {
+public class Blueprint extends Thing {
 
     public final String identifier;
     public final Set<Constructor> constructors;
-    public final Set<Function> functions;
-    public final Set<Parameter> fields;
 
-    public Blueprint() {
-        this.identifier = "";
-        this.constructors = new HashSet<>();
-        this.functions = new HashSet<>();
-        this.fields = new HashSet<>();
-    }
-
-    public Blueprint(String identifier, List<Constructor> constructors, List<Function> functions, List<Parameter> fields) {
+    public Blueprint(String identifier, List<Constructor> constructors) {
         this.identifier = identifier;
         this.constructors = new HashSet<>(constructors);
-        this.functions = new HashSet<>(functions);
-        this.fields = new HashSet<>(fields);
     }
 
     public Set<Constructor> getConstructors() {
@@ -33,18 +22,6 @@ public class Blueprint {
 
     public Set<Function> getFunctions() {
         return functions;
-    }
-
-    public Optional<Function> getFunction(String identifier) {
-        return functions.stream().filter(f -> f.identifier.equals(identifier)).findFirst();
-    }
-
-    public Set<Parameter> getFields() {
-        return fields;
-    }
-
-    public Optional<Parameter> getField(String identifier) {
-        return fields.stream().filter(f -> f.identifier.equals(identifier)).findFirst();
     }
 
 }

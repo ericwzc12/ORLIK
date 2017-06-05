@@ -1,8 +1,7 @@
 package school.ahs.ORLIK.Runtime;
 
-import school.ahs.ORLIK.Instruction.Assignment;
-import school.ahs.ORLIK.Instruction.IfStatement;
-import school.ahs.ORLIK.Instruction.Print;
+import school.ahs.ORLIK.Instruction.*;
+import school.ahs.ORLIK.StandardLibrary.Int32;
 
 import java.io.File;
 import java.util.*;
@@ -10,91 +9,119 @@ import java.util.*;
 public class Runtime extends Block implements Instruction {
 
     public final String code;
-    public final Set<Blueprint> blueprints;
 
     public Runtime(String code) {
-        this.blueprints = new HashSet<>();
         this.code = code.replace("\n", "");
     }
 
-    public Optional<Blueprint> getBlueprint(String identifier) {
-        return blueprints.stream().filter(b -> b.identifier.equals(identifier)).findFirst();
+    private Instruction getInstruction(String str) {
+        try {
+            Int32Literal int32Literal = new Int32Literal(str);
+            System.err.println("Created Int32Literal from instruction: " + str);
+            return int32Literal;
+        } catch (Exception e3) {
+            try {
+                Print print = new Print(str);
+                System.err.println("Created Print from instruction: " + str);
+                return print;
+            } catch (Exception e2) {
+                try {
+                    FunctionCall functionCall = new FunctionCall(str);
+                    System.err.println("Created FunctionCall from instruction: " + str);
+                    return functionCall;
+                } catch (Exception e4) {
+                    try {
+                        Assignment assignment = new Assignment(str);
+                        System.err.println("Created Assignment from instruction: " + str);
+                        return assignment;
+                    } catch (Exception e1) {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 
-    private Instruction getInstruction(String str) {
-        System.err.println("Get instruction of " + str);
+    private Instruction getInstruction(String str, Block block) {
         try {
-            return new Assignment(str, this);
-        } catch (Exception e1) {
+            IfStatement ifStatement = new IfStatement(str, block);
+            System.err.println("Created IfStatement from instruction: " + str);
+            return ifStatement;
+        } catch (Exception e) {
             try {
-                return new Print(str, this);
+                FunctionLiteral functionLiteral = new FunctionLiteral(str, block);
+                System.err.println("Created FunctionLiteral from instruction: " + str);
+                return functionLiteral;
             } catch (Exception e2) {
                 return null;
             }
         }
     }
 
-    private Instruction getInstruction(String str, Block block) {
-        System.err.println("Get instruction of " + str + " with block");
-        try {
-            return new IfStatement(str, this, block);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     @Override
     public void execute(Set<Variable> variables) {
+        System.err.println("Executing runtime with variables: " + variables + " code: " + code);
+
         int cursor = 0;
         int nextSemicolon = code.indexOf(';');
         int nextBrace = code.indexOf('{');
 
         while (nextSemicolon != -1 && nextBrace != -1) {
             if (nextSemicolon < nextBrace) {
-                String raw = code.substring(cursor, nextSemicolon);
-                Instruction i = getInstruction(raw);
-                i.execute(variables);
+                interpretRawInstruction(cursor, nextSemicolon, variables);
                 cursor = nextSemicolon + 1;
             } else {
-                int braceCount = 1;
-                int closeBrace = nextBrace + 1;
-                while (braceCount > 0) {
-                    closeBrace += 1;
-                    if (code.charAt(closeBrace) == '}') {
-                        braceCount -= 1;
-                    } else if (code.charAt(closeBrace) == '{') {
-                        braceCount += 1;
-                    }
-                }
-                String raw = code.substring(cursor, nextBrace);
-                String rawBlock = code.substring(nextBrace + 1, closeBrace);
-                Block block = new Runtime(rawBlock);
-                Instruction instruction = getInstruction(raw, block);
-                instruction.execute(variables);
-                cursor = closeBrace + 1;
+                cursor = interpretRawBlock(cursor, nextBrace, variables) + 1;
             }
+            nextSemicolon = code.indexOf(';', cursor);
+            nextBrace = code.indexOf('{', cursor);
         }
 
-        if (nextSemicolon != -1) {
-            String raw = code.substring(cursor, nextSemicolon);
-            Instruction i = getInstruction(raw);
-            i.execute(variables);
-        } else if (nextBrace != -1) {
-            int braceCount = 1;
-            int closeBrace = nextBrace;
-            while (braceCount > 0 && closeBrace < code.length() - 1) {
-                closeBrace += 1;
-                if (code.charAt(closeBrace) == '}') {
-                    braceCount -= 1;
-                } else if (code.charAt(closeBrace) == '{') {
-                    braceCount += 1;
-                }
-            }
-            String raw = code.substring(cursor, nextBrace);
-            String rawBlock = code.substring(nextBrace + 1, closeBrace);
-            Block block = new Runtime(rawBlock);
-            Instruction instruction = getInstruction(raw, block);
-            instruction.execute(variables);
+        while (nextSemicolon != -1) {
+            interpretRawInstruction(cursor, nextSemicolon, variables);
+            cursor = nextSemicolon + 1;
+            nextSemicolon = code.indexOf(';', cursor);
         }
+        while (nextBrace != -1) {
+            cursor = interpretRawBlock(cursor, nextBrace, variables) + 1;
+            nextBrace = code.indexOf('{', cursor);
+        }
+    }
+
+    private void interpretRawInstruction(int cursor, int nextSemicolon, Set<Variable> variables) {
+        String raw = code.substring(cursor, nextSemicolon).trim();
+        Instruction i = getInstruction(raw);
+        if (i != null) {
+            i.execute(variables);
+        } else {
+            System.err.println("Could not interpret raw instruction: " + raw);
+        }
+    }
+
+    private int interpretRawBlock(int cursor, int nextBrace, Set<Variable> variables) {
+        int braceCount = 1;
+        int closeBrace = nextBrace;
+        while (braceCount > 0 && closeBrace < code.length() - 1) {
+            closeBrace += 1;
+            if (code.charAt(closeBrace) == '}') {
+                braceCount -= 1;
+            } else if (code.charAt(closeBrace) == '{') {
+                braceCount += 1;
+            }
+        }
+        if (closeBrace == code.length()) {
+            throw new RuntimeException("Runtime error: Braces must be balanced.");
+        }
+        String raw = code.substring(cursor, nextBrace);
+        String rawBlock = code.substring(nextBrace + 1, closeBrace);
+        System.err.println("Created raw block: " + rawBlock);
+        Block block = new Runtime(rawBlock);
+        Instruction instruction = getInstruction(raw, block);
+        if (instruction != null) {
+            instruction.execute(variables);
+        } else {
+            System.err.println("Could not get block instruction from: " + raw);
+        }
+        return closeBrace;
     }
 }

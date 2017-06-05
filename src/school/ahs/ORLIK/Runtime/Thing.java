@@ -7,28 +7,24 @@ import java.util.Set;
 
 public class Thing {
 
-    public final Blueprint blueprint;
+    public final Optional<Blueprint> blueprint;
     public final Set<Variable> variables;
     public final Set<Function> functions;
 
     public Thing() {
-        this.blueprint = new Blueprint();
-        this.variables = new HashSet<>();
-        this.functions = new HashSet<>();
+        blueprint = Optional.empty();
+        variables = new HashSet<>();
+        functions = new HashSet<>();
     }
 
     public Thing(Blueprint blueprint, Set<Variable> variables, Set<Function> functions) {
-        this.blueprint = blueprint;
+        this.blueprint = Optional.of(blueprint);
         this.variables = new HashSet<>(variables);
         this.functions = new HashSet<>(functions);
     }
 
     public Set<Function> getFunctions() {
         return functions;
-    }
-
-    public Optional<Function> getFunction(String identifier) {
-        return functions.stream().filter(f -> f.identifier.equals(identifier)).findFirst();
     }
 
     public Set<Variable> getVariables() {

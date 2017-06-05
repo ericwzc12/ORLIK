@@ -13,9 +13,9 @@ public class Assignment implements Instruction {
 
     public final String identifier;
     public final String inParens;
-    public final Blueprint blueprint;
+    public final String blueprintIdentifier;
 
-    public Assignment(String statement, Runtime runtime) throws IllegalArgumentException {
+    public Assignment(String statement) throws IllegalArgumentException {
         validateAssignmentStatement(statement);
 
         int space1 = statement.indexOf(' ');
@@ -26,12 +26,9 @@ public class Assignment implements Instruction {
 
         validateIndexes(space1, paren1, paren2, space2, space3);
 
-        String blueprintIdentifier = statement.substring(space1 + 1, paren1);
-        inParens = statement.substring(paren1, paren2 + 1);
-        String thingIdentifier = statement.substring(space3);
-
-        blueprint = runtime.getBlueprint(blueprintIdentifier).orElseThrow(() -> new IllegalArgumentException());
-        this.identifier = thingIdentifier;
+        this.blueprintIdentifier = statement.substring(space1 + 1, paren1);
+        this.inParens = statement.substring(paren1, paren2 + 1);
+        this.identifier = statement.substring(space3);
     }
 
     private void validateAssignmentStatement(String statement) throws IllegalArgumentException {
@@ -55,15 +52,17 @@ public class Assignment implements Instruction {
     public void execute(Set<Variable> variables) {
         List<String> identifiers = new ArrayList<>(Arrays.asList(inParens.split(",")));
         List<Thing> things = identifiers.stream().map(i -> getVariable(i, variables)).map(v -> v.thing).collect(Collectors.toList());
+        Blueprint blueprint = (Blueprint) getVariable(blueprintIdentifier, variables).getThing();
         Constructor constructor = blueprint.constructors.stream().filter(c -> {
             for (int i = 0; i < identifiers.size(); i++) {
-                if (c.parameters.get(i).blueprint.equals(getVariable(identifiers.get(i), variables).getThing().blueprint)) {
+                if (c.parameters.get(i).blueprint.equals(getVariable(identifiers.get(i), variables).getThing().blueprint.get())) {
                     return false;
                 }
             }
             return true;
         }).findFirst().get();
         Variable variable = new Variable(identifier, constructor.construct(things));
+        variables.add(variable);
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {

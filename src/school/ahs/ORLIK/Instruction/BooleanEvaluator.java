@@ -4,6 +4,7 @@ import school.ahs.ORLIK.Runtime.Variable;
 import school.ahs.ORLIK.StandardLibrary.Int32;
 import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class BooleanEvaluator {
 
@@ -45,14 +46,12 @@ public class BooleanEvaluator {
         switch(expression){
             case "true": return true;
             case "false": return false;
-            default: return ((Int32)getVariable(expression, variables).getThing()).getValue() != 0;
+            default: return ((Int32) getVariable(expression, variables).getThing()).getValue() != 0;
         }
 
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {
-
         return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst().get();
-
     }
 }

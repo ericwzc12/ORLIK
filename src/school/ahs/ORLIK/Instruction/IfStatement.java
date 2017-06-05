@@ -13,7 +13,7 @@ public class IfStatement implements Instruction{
     private String statement;
     private String expressions;
 
-    public IfStatement(String statement, Runtime runtime, Block block) throws IllegalArgumentException{
+    public IfStatement(String statement, Block block) throws IllegalArgumentException{
 
         this.block = block;
         this.statement = statement.replace(" ", "");
@@ -52,10 +52,7 @@ public class IfStatement implements Instruction{
     public void execute(Set<Variable> variables) {
         BooleanEvaluator eval = new BooleanEvaluator();
         if(eval.evaluate(statement.substring(15), variables))
-            //block.execute(variables);
-            System.err.println("true");
-        else
-            System.err.println("false");
+            block.execute(variables);
     }
 
     /*private boolean recursiveEval(String expression, Set<Variable> variables){

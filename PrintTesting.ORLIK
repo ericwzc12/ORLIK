@@ -1,7 +1,11 @@
-anybodywantsome(true) {
-    print(Hello world!)
+do createAwesomeNews now() {
+    print(Creating awesome news!);
+    givemeanew Int32(1) called awesomeNews;
+    print(Created awesome news!);
+    anybodywantsome(awesomeNews) {
+        print(I got the awesome news!);
+    }
 }
-anybodywantsome(false) {
-    print(Goodbye World!)
-}
-
+print(This executes before);
+createAwesomeNews();
+print(This executes after);

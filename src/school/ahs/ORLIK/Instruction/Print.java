@@ -11,7 +11,7 @@ public class Print implements Instruction {
 
     final String string;
 
-    public Print(String line, Runtime runtime) throws IllegalArgumentException {
+    public Print(String line) throws IllegalArgumentException {
         validatePrintStatement(line);
         string = line.substring(6, line.length() - 1);
     }

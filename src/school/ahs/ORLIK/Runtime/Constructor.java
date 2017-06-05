@@ -2,19 +2,12 @@ package school.ahs.ORLIK.Runtime;
 
 import java.util.*;
 
-public class Constructor {
+public class Constructor extends Thing {
 
     public final String identifier;
     public final Block block;
     public final List<Parameter> parameters;
     public final Blueprint blueprint;
-
-    public Constructor() {
-        this.identifier = "";
-        this.block = new Block();
-        this.parameters = new ArrayList<>();
-        this.blueprint = new Blueprint();
-    }
 
     public Constructor(String identifier, Block block, List<Parameter> parameters, Blueprint blueprint) {
         this.identifier = identifier;
@@ -42,7 +35,7 @@ public class Constructor {
         while (thingIterator.hasNext() && parameterIterator.hasNext()) {
             Thing thing = thingIterator.next();
             Parameter parameter = parameterIterator.next();
-            if (thing.blueprint != parameter.blueprint) {
+            if (thing.blueprint.get() != parameter.blueprint) {
                 throw new IllegalArgumentException("Invalid argument blueprints.");
             }
 

@@ -16,7 +16,7 @@ public class Driver {
     public static void main(String[] args) throws Exception {
         File file = new File(args[0]);
         Scanner input = new Scanner(file);
-        String code = input.useDelimiter("\\n").next();
+        String code = input.useDelimiter("\\Z").next();
         Runtime runtime = new Runtime(code);
         runtime.execute(new HashSet<>());
     }

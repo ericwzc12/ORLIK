@@ -15,7 +15,7 @@ public class Int32Literal implements Instruction {
     public final int value;
     public final String identifier;
 
-    public Int32Literal(String statement, Runtime runtime) throws IllegalArgumentException {
+    public Int32Literal(String statement) throws IllegalArgumentException {
         validateAssignmentStatement(statement);
 
         int space1 = statement.indexOf(' ');
@@ -26,9 +26,8 @@ public class Int32Literal implements Instruction {
 
         validateIndexes(space1, paren1, paren2, space2, space3);
 
-        String blueprintIdentifier = statement.substring(space1 + 1, paren1);
-        value = Integer.parseInt(statement.substring(paren1, paren2 + 1));
-        String thingIdentifier = statement.substring(space3);
+        value = Integer.parseInt(statement.substring(paren1 + 1, paren2));
+        String thingIdentifier = statement.substring(space3 + 1);
 
         this.identifier = thingIdentifier;
     }
@@ -53,6 +52,7 @@ public class Int32Literal implements Instruction {
     @Override
     public void execute(Set<Variable> variables) {
         Variable variable = new Variable(identifier, new Int32(value));
+        variables.add(variable);
     }
 
 }
