@@ -1,11 +1,6 @@
-do createAwesomeNews now() {
-    print(Creating awesome news!);
-    givemeanew Int32(1) called awesomeNews;
-    print(Created awesome news!);
-    anybodywantsome(awesomeNews) {
-        print(I got the awesome news!);
-    }
+givemeanew Int32(1) called yes;
+O(yes) {
+    print(YES!);
+    givemeanew Int32(0) called temp;
+    yes = temp;
 }
-print(This executes before);
-createAwesomeNews();
-print(This executes after);

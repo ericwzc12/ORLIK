@@ -11,7 +11,7 @@ public class Runtime extends Block implements Instruction {
     public final String code;
 
     public Runtime(String code) {
-        this.code = code.replace("\n", "");
+        this.code = code.replace("\n", "").replace("\r", "");
     }
 
     private Instruction getInstruction(String str) {
@@ -53,7 +53,13 @@ public class Runtime extends Block implements Instruction {
                 System.err.println("Created FunctionLiteral from instruction: " + str);
                 return functionLiteral;
             } catch (Exception e2) {
-                return null;
+                try {
+                    WhileLoop whileLoop = new WhileLoop(str, block);
+                    System.err.println("Created WhileLoop from instruction: " + str);
+                    return whileLoop;
+                } catch (Exception e3) {
+                    return null;
+                }
             }
         }
     }

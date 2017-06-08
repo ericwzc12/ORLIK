@@ -18,6 +18,7 @@ public class Driver {
         Scanner input = new Scanner(file);
         String code = input.useDelimiter("\\Z").next();
         Runtime runtime = new Runtime(code);
+        System.err.println("Main code: " + code);
         runtime.execute(new HashSet<>());
     }
 

@@ -1,28 +1,31 @@
 package school.ahs.ORLIK.Instruction;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import school.ahs.ORLIK.Runtime.Block;
 import school.ahs.ORLIK.Runtime.Instruction;
 import school.ahs.ORLIK.Runtime.Variable;
+
 import java.util.Set;
 
-public class IfStatement extends Conditional implements Instruction{
+public class WhileLoop extends Conditional implements Instruction{
 
-    public IfStatement(String statement, Block block) throws IllegalArgumentException{
+    public WhileLoop(String statement, Block block) throws InvalidArgumentException{
+
         super(statement, block);
     }
 
-    @Override
-    public String getLoopName(){
+    @Override public String getLoopName(){
 
-        return "anybodywantsome";
+        return "O";
 
     }
 
     @Override
     public void execute(Set<Variable> variables) {
         BooleanEvaluator eval = new BooleanEvaluator();
-        if(eval.evaluate(super.getStatement().substring(15), variables))
+        while(eval.evaluate(super.getStatement().substring(1), variables)){
             super.getBlock().execute(variables);
-    }
+        }
 
+    }
 }

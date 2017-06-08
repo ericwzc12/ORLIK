@@ -4,7 +4,6 @@ import school.ahs.ORLIK.Runtime.Variable;
 import school.ahs.ORLIK.StandardLibrary.Int32;
 import java.util.Set;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 public class BooleanEvaluator {
 
@@ -17,7 +16,6 @@ public class BooleanEvaluator {
     }
 
     public boolean evaluate(String expression, Set<Variable> variables){
-
         return recursiveEval(expression, variables);
 
     }
