@@ -1,6 +1,34 @@
-givemeanew Int32(1) called yes;
-O(yes) {
-    print(YES!);
-    givemeanew Int32(0) called temp;
-    yes = temp;
+do createAwesomeNews now(Int32 called swag,Int32 called fidgetSpinners) {
+
+    do bigO now(Int32 called continue) {
+        anybodywantsome(continue) {
+            print(Continuing);
+        }
+    }
+    anybodywantsome(true) {
+        print(MYASS);
+    }
+
+    print(Creating awesome news!);
+    givemeanew Int32(1) called awesomeNews;
+    print(Created awesome news!);
+    anybodywantsome(awesomeNews) {
+        print(I got the awesome news!);
+    }
+    anybodywantsome(swag) {
+        print(I got the swag!);
+    }
+    anybodywantsome(fidgetSpinners) {
+        print(I got the fidget spinners!);
+    }
+
+    givemeanew Int32(1) called test;
+    bigO(test);
 }
+print(This executes before);
+givemeanew Int32(1) called swag;
+givemeanew Int32(1) called fidgetSpinners;
+createAwesomeNews(swag,fidgetSpinners);
+print(This executes after);
+
+fuck

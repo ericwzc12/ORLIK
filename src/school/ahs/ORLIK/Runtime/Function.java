@@ -24,12 +24,12 @@ public class Function extends Thing {
         return block;
     }
 
-    public Optional<Thing> call(List<Thing> things) {
+    public Optional<Thing> call(List<Thing> things, Set<Variable> environment) {
         if (parameters.size() != things.size()) {
             throw new IllegalArgumentException("Invalid number of arguments.");
         }
 
-        Set<Variable> variables = new HashSet<>();
+        Set<Variable> variables = new HashSet<>(environment);
         Iterator<Thing> thingIterator = things.iterator();
         Iterator<Parameter> parameterIterator = parameters.iterator();
         while (thingIterator.hasNext() && parameterIterator.hasNext()) {

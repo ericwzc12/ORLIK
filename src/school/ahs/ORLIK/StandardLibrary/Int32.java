@@ -5,13 +5,25 @@ import school.ahs.ORLIK.Runtime.Constructor;
 import school.ahs.ORLIK.Runtime.Thing;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 public class Int32 extends Thing {
 
-    public int value;
+    static {
+        blueprint = new Blueprint(new ArrayList<>());
+    }
+
+    private static Blueprint blueprint;
+
+    public static Blueprint getBlueprint() {
+        return blueprint;
+    }
+
+    private int value;
 
     public Int32(int value) {
+        super(blueprint, new HashSet<>(), new HashSet<>());
         this.value = value;
     }
 

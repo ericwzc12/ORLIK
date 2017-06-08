@@ -8,10 +8,16 @@ import java.util.*;
 
 public class Runtime extends Block implements Instruction {
 
-    public final String code;
+    private final String code;
+    private final boolean shouldInitializeStandardLibrary;
 
     public Runtime(String code) {
-        this.code = code.replace("\n", "").replace("\r", "");
+        this(code, false);
+    }
+
+    public Runtime(String code, boolean initializeStandardLibrary) {
+        this.code = code.replace("\n", "");
+        this.shouldInitializeStandardLibrary = initializeStandardLibrary;
     }
 
     private Instruction getInstruction(String str) {
@@ -66,6 +72,10 @@ public class Runtime extends Block implements Instruction {
 
     @Override
     public void execute(Set<Variable> variables) {
+        if (shouldInitializeStandardLibrary) {
+            initializeStandardLibrary(variables);
+        }
+
         System.err.println("Executing runtime with variables: " + variables + " code: " + code);
 
         int cursor = 0;
@@ -118,8 +128,8 @@ public class Runtime extends Block implements Instruction {
         if (closeBrace == code.length()) {
             throw new RuntimeException("Runtime error: Braces must be balanced.");
         }
-        String raw = code.substring(cursor, nextBrace);
-        String rawBlock = code.substring(nextBrace + 1, closeBrace);
+        String raw = code.substring(cursor, nextBrace).trim();
+        String rawBlock = code.substring(nextBrace + 1, closeBrace).trim();
         System.err.println("Created raw block: " + rawBlock);
         Block block = new Runtime(rawBlock);
         Instruction instruction = getInstruction(raw, block);
@@ -130,4 +140,12 @@ public class Runtime extends Block implements Instruction {
         }
         return closeBrace;
     }
+
+    private void initializeStandardLibrary(Set<Variable> variables) {
+        System.err.println("Initializing standard library");
+
+        Blueprint int32Blueprint = Int32.getBlueprint();
+        variables.add(new Variable("Int32", int32Blueprint));
+    }
+
 }

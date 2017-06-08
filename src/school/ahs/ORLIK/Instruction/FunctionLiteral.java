@@ -50,8 +50,8 @@ public class FunctionLiteral implements Instruction {
     public void execute(Set<Variable> variables) {
         List<Parameter> parameters = paramIdentifiers.stream().map(i -> {
             String[] thingIdentifierBlueprintIdentifier = i.split(" called ");
-            String thingIdentifier = thingIdentifierBlueprintIdentifier[0];
-            String blueprintIdentifier = thingIdentifierBlueprintIdentifier[1];
+            String thingIdentifier = thingIdentifierBlueprintIdentifier[1];
+            String blueprintIdentifier = thingIdentifierBlueprintIdentifier[0];
             Blueprint blueprint = (Blueprint) variables.stream().filter(v -> v.identifier.equals(blueprintIdentifier)).findFirst().get().thing;
             return new Parameter(thingIdentifier, blueprint);
         }).collect(Collectors.toList());

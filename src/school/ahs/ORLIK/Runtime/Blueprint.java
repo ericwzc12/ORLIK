@@ -4,11 +4,9 @@ import java.util.*;
 
 public class Blueprint extends Thing {
 
-    public final String identifier;
     public final Set<Constructor> constructors;
 
-    public Blueprint(String identifier, List<Constructor> constructors) {
-        this.identifier = identifier;
+    public Blueprint(List<Constructor> constructors) {
         this.constructors = new HashSet<>(constructors);
     }
 
