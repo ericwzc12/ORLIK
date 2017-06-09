@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class Int32Literal implements Instruction {
 
-    public final int value;
-    public final String identifier;
+    private final int value;
+    private final String identifier;
 
     public Int32Literal(String statement) throws IllegalArgumentException {
         validateAssignmentStatement(statement);

@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 public class FunctionCall implements Instruction {
 
-    public final Optional<String> returnIdentifier;
-    public final String functionIdentifier;
-    public final List<String> parameterIdentifiers;
+    private final Optional<String> returnIdentifier;
+    private final String functionIdentifier;
+    private final List<String> parameterIdentifiers;
 
     public FunctionCall(String code) {
         int equals = code.indexOf('=');

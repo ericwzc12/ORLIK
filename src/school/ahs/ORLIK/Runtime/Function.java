@@ -4,9 +4,9 @@ import java.util.*;
 
 public class Function extends Thing {
 
-    public final Block block;
-    public final List<Parameter> parameters;
-    public final Blueprint returns;
+    private final Block block;
+    private final List<Parameter> parameters;
+    private final Blueprint returns;
 
     public Function() {
         this.block = new Block();
@@ -39,16 +39,16 @@ public class Function extends Thing {
                 throw new IllegalArgumentException("Invalid argument blueprints.");
             }
 
-            variables.add(new Variable(parameter.identifier, thing));
+            variables.add(new Variable(parameter.getIdentifier(), thing));
         }
 
         block.execute(variables);
         if (returns != null) {
-            Variable returnsVariable = variables.stream().filter(v -> v.identifier.equals("return")).findFirst().orElseThrow(() -> new IllegalArgumentException());
-            if (returnsVariable.thing.blueprint.get() != returns) {
+            Variable returnsVariable = variables.stream().filter(v -> v.getIdentifier().equals("return")).findFirst().orElseThrow(() -> new IllegalArgumentException());
+            if (returnsVariable.getThing().blueprint.get() != returns) {
                 throw new IllegalArgumentException();
             }
-            return Optional.of(returnsVariable.thing);
+            return Optional.of(returnsVariable.getThing());
         } else {
             return Optional.empty();
         }

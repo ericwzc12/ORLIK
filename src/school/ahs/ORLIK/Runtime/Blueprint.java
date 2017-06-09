@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Blueprint extends Thing {
 
-    public final Set<Constructor> constructors;
+    private final Set<Constructor> constructors;
 
     public Blueprint(List<Constructor> constructors) {
         this.constructors = new HashSet<>(constructors);
@@ -15,11 +15,11 @@ public class Blueprint extends Thing {
     }
 
     public Optional<Constructor> getConstructor(String identifier) {
-        return constructors.stream().filter(c -> c.identifier.equals(identifier)).findFirst();
+        return constructors.stream().filter(c -> c.getIdentifier().equals(identifier)).findFirst();
     }
 
     public Set<Function> getFunctions() {
-        return functions;
+        return getFunctions();
     }
 
 }

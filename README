@@ -1,0 +1,55 @@
+------------------------------------------------------------------------------------------------------------------------
+   ____  _____  _      _____ _  __
+  / __ \|  __ \| |    |_   _| |/ /
+ | |  | | |__) | |      | | | ' /
+ | |  | |  _  /| |      | | |  <
+ | |__| | | \ \| |____ _| |_| . \
+  \____/|_|  \_\______|_____|_|\_\
+
+------------------------------------------------------------------------------------------------------------------------
+
+==========================
+          SYNTAX
+==========================
+
+Variables are defined as follows:
+    givemeanew <type>(value) called <identifier>
+
+Functions are defined as follows:
+    do <identifier> now(<type> called <identifier>...) {<code>}
+
+If statements are defined as follows:
+    anybodywantsome (<conditional>) {<code>}
+
+While loops are defined as follows:
+    O(<conditional>) {<code>}
+
+Printing is done as follows:
+    print(<text>); //print prints out what's in between the parenthesis exactly as you see it.
+
+NOTE: A variable with a value of 0 is considered "false". A variable with any other value is considered "true".
+------------------------------------------------------------------------------------------------------------------------
+
+==========================
+          CODING
+==========================
+
+Profanity is NOT ALLOWED when writing code and will result in a SWEAR JAR!
+
+Write code in a .ORLIK file. To run your code, set the arguments for the Driver's main method to the file path.
+
+------------------------------------------------------------------------------------------------------------------------
+
+===========================
+      EXAMPLE PROGRAM
+===========================
+
+do mainRunsTheProgram now(Int32 called candy){
+    anybodywantsome(candy){
+        print(airheads);
+    }
+}
+
+givemeanew Int32(1) called candy;
+
+this first creates a new Int32 called candy with the value of 1.

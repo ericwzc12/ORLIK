@@ -7,9 +7,9 @@ import java.util.Set;
 
 public class Thing {
 
-    public final Optional<Blueprint> blueprint;
-    public final Set<Variable> variables;
-    public final Set<Function> functions;
+    private final Optional<Blueprint> blueprint;
+    private final Set<Variable> variables;
+    private final Set<Function> functions;
 
     public Thing() {
         blueprint = Optional.empty();
@@ -32,7 +32,11 @@ public class Thing {
     }
 
     public Optional<Variable> getVariable(String identifier) {
-        return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst();
+        return variables.stream().filter(v -> v.getIdentifier().equals(identifier)).findFirst();
+    }
+
+    public Optional<Blueprint> getBlueprint() {
+        return blueprint;
     }
 
     @Override

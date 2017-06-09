@@ -4,10 +4,10 @@ import java.util.*;
 
 public class Constructor extends Thing {
 
-    public final String identifier;
-    public final Block block;
-    public final List<Parameter> parameters;
-    public final Blueprint blueprint;
+    private final String identifier;
+    private final Block block;
+    private final List<Parameter> parameters;
+    private final Blueprint blueprint;
 
     public Constructor(String identifier, Block block, List<Parameter> parameters, Blueprint blueprint) {
         this.identifier = identifier;
@@ -22,6 +22,10 @@ public class Constructor extends Thing {
 
     public List<Parameter> getParameters() {
         return parameters;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     public Thing construct(List<Thing> things) throws IllegalArgumentException {

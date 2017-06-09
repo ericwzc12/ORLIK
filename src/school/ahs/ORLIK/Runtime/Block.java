@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Block implements Instruction {
 
-    public final List<Instruction> instructions;
+    private final List<Instruction> instructions;
 
     public Block() {
         this.instructions = new ArrayList<>();

@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class Assignment implements Instruction {
 
-    public final String identifier;
-    public final String inParens;
-    public final String blueprintIdentifier;
+    private final String identifier;
+    private final String inParens;
+    private final String blueprintIdentifier;
 
     public Assignment(String statement) throws IllegalArgumentException {
         validateAssignmentStatement(statement);

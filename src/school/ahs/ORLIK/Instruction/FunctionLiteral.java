@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 public class FunctionLiteral implements Instruction {
 
-    public final String identifier;
-    public final List<String> paramIdentifiers;
-    public final String returnTypeIdentifier;
-    public final Block block;
+    private final String identifier;
+    private final List<String> paramIdentifiers;
+    private final String returnTypeIdentifier;
+    private final Block block;
 
     public FunctionLiteral(String code, Block block) {
         if (!code.startsWith("do ")) {

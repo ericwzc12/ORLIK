@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Print implements Instruction {
 
-    final String string;
+    private final String string;
 
     public Print(String line) throws IllegalArgumentException {
         validatePrintStatement(line);

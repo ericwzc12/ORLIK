@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Variable {
 
-    public final String identifier;
-    public final Thing thing;
+    private final String identifier;
+    private final Thing thing;
 
     public Variable(String identifier, Thing thing) {
         this.identifier = identifier;

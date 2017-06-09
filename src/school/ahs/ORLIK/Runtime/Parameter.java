@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Parameter {
 
-    public final String identifier;
-    public final Blueprint blueprint;
+    private final String identifier;
+    private final Blueprint blueprint;
 
     public Parameter(String identifier, Blueprint blueprint) {
         this.identifier = identifier;

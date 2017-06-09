@@ -17,7 +17,7 @@ public class ExpressionEvaluator {
         };
 
         abstract Int32 operate(Int32 lhs, Int32 rhs);
-        abstract
+        //abstract
     }
 
     public ExpressionEvaluator(String instruction) {
