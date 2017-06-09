@@ -41,12 +41,12 @@ public class FunctionCall implements Instruction {
 
     @Override
     public void execute(Set<Variable> variables) {
-        List<Thing> things = parameterIdentifiers.stream().map(i -> getVariable(i, variables)).map(v -> v.thing).collect(Collectors.toList());
-        Function function = (Function) getVariable(functionIdentifier, variables).thing;
+        List<Thing> things = parameterIdentifiers.stream().map(i -> getVariable(i, variables)).map(v -> v.getThing()).collect(Collectors.toList());
+        Function function = (Function) getVariable(functionIdentifier, variables).getThing();
         function.call(things, variables).ifPresent(t -> returnIdentifier.ifPresent(i -> variables.add(new Variable(i, t))));
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {
-        return variables.stream().filter(v -> v.identifier.equals(identifier)).findAny().get();
+        return variables.stream().filter(v -> v.getIdentifier().equals(identifier)).findAny().get();
     }
 }

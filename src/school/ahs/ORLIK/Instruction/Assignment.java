@@ -51,11 +51,11 @@ public class Assignment implements Instruction {
     @Override
     public void execute(Set<Variable> variables) {
         List<String> identifiers = new ArrayList<>(Arrays.asList(inParens.split(",")));
-        List<Thing> things = identifiers.stream().map(i -> getVariable(i, variables)).map(v -> v.thing).collect(Collectors.toList());
+        List<Thing> things = identifiers.stream().map(i -> getVariable(i, variables)).map(v -> v.getThing()).collect(Collectors.toList());
         Blueprint blueprint = (Blueprint) getVariable(blueprintIdentifier, variables).getThing();
-        Constructor constructor = blueprint.constructors.stream().filter(c -> {
+        Constructor constructor = blueprint.getConstructors().stream().filter(c -> {
             for (int i = 0; i < identifiers.size(); i++) {
-                if (c.parameters.get(i).blueprint.equals(getVariable(identifiers.get(i), variables).getThing().blueprint.get())) {
+                if (c.getParameters().get(i).getBlueprint().equals(getVariable(identifiers.get(i), variables).getThing().getBlueprint().get())) {
                     return false;
                 }
             }
@@ -66,7 +66,7 @@ public class Assignment implements Instruction {
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {
-        return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst().get();
+        return variables.stream().filter(v -> v.getIdentifier().equals(identifier)).findFirst().get();
     }
 
 }

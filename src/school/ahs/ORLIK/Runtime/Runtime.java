@@ -22,10 +22,10 @@ public class Runtime extends Block implements Instruction {
 
     private Instruction getInstruction(String str) {
         try {
-            Int32Literal int32Literal = new Int32Literal(str);
-            System.err.println("Created Int32Literal from instruction: " + str);
-            return int32Literal;
-        } catch (Exception e3) {
+            Int32Expression int32Expression = new Int32Expression(str);
+            System.err.println("Created Int32Expression from instruction:" + str);
+            return int32Expression;
+        } catch (Exception e5) {
             try {
                 Print print = new Print(str);
                 System.err.println("Created Print from instruction: " + str);
@@ -144,7 +144,7 @@ public class Runtime extends Block implements Instruction {
     private void initializeStandardLibrary(Set<Variable> variables) {
         System.err.println("Initializing standard library");
 
-        Blueprint int32Blueprint = Int32.getBlueprint();
+        Blueprint int32Blueprint = Int32.getInt32Blueprint();
         variables.add(new Variable("Int32", int32Blueprint));
     }
 

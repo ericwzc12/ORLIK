@@ -43,7 +43,7 @@ public class FunctionLiteral implements Instruction {
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {
-        return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst().get();
+        return variables.stream().filter(v -> v.getIdentifier().equals(identifier)).findFirst().get();
     }
 
     @Override
@@ -52,12 +52,12 @@ public class FunctionLiteral implements Instruction {
             String[] thingIdentifierBlueprintIdentifier = i.split(" called ");
             String thingIdentifier = thingIdentifierBlueprintIdentifier[1];
             String blueprintIdentifier = thingIdentifierBlueprintIdentifier[0];
-            Blueprint blueprint = (Blueprint) variables.stream().filter(v -> v.identifier.equals(blueprintIdentifier)).findFirst().get().thing;
+            Blueprint blueprint = (Blueprint) variables.stream().filter(v -> v.getIdentifier().equals(blueprintIdentifier)).findFirst().get().getThing();
             return new Parameter(thingIdentifier, blueprint);
         }).collect(Collectors.toList());
         Blueprint returns;
         if (returnTypeIdentifier != null) {
-            returns = (Blueprint) variables.stream().filter(v -> v.identifier.equals(returnTypeIdentifier)).findAny().get().thing;
+            returns = (Blueprint) variables.stream().filter(v -> v.getIdentifier().equals(returnTypeIdentifier)).findAny().get().getThing();
         } else {
             returns = null;
         }

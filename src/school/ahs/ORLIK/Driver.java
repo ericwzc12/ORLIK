@@ -13,15 +13,19 @@ public class Driver {
     public static String[] swearWords = new String[] {"fuck", "shit", "nigger", "crap", "ass"};
 
     public static void main(String[] args) throws Throwable {
-        File file = new File(args[0]);
-        Scanner input = new Scanner(file);
-        String code = input.useDelimiter("\\Z").next();
-        Runtime runtime = new Runtime(code, true);
-        if (new HashSet<String>(Arrays.asList(swearWords)).stream().anyMatch(s -> code.contains(s))) {
-            System.out.println("MY VIRGIN EEARRSSS!!!");
-            throw new Throwable("SWEAR JAR!");
+        try {
+            File file = new File(args[0]);
+            Scanner input = new Scanner(file);
+            String code = input.useDelimiter("\\Z").next();
+            Runtime runtime = new Runtime(code, true);
+            if (new HashSet<>(Arrays.asList(swearWords)).stream().anyMatch(s -> code.contains(s))) {
+                System.out.println("MY VIRGIN EEARRSSS!!!");
+                throw new Throwable("SWEAR JAR!");
+            }
+            runtime.execute(new HashSet<>());
+        } catch (Exception e) {
+            System.out.println("haha");
         }
-        runtime.execute(new HashSet<>());
     }
 
 }

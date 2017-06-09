@@ -1,35 +1,30 @@
 package school.ahs.ORLIK.Instruction;
 
-import school.ahs.ORLIK.Runtime.*;
-import school.ahs.ORLIK.Runtime.Runtime;
+import school.ahs.ORLIK.Runtime.Instruction;
+import school.ahs.ORLIK.Runtime.Variable;
 import school.ahs.ORLIK.StandardLibrary.Int32;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class Int32Literal implements Instruction {
+public class Int32Expression implements Instruction {
 
-    private final int value;
-    private final String identifier;
+    public final String identifier;
+    public final String expression;
 
-    public Int32Literal(String statement) throws IllegalArgumentException {
+    public Int32Expression(String statement) throws IllegalArgumentException {
         validateAssignmentStatement(statement);
 
         int space1 = statement.indexOf(' ');
         int paren1 = statement.indexOf('(');
         int paren2 = statement.indexOf(')');
-        int space2 = statement.indexOf(' ', space1 + 1);
+        int space2 = statement.indexOf(' ', paren2 + 1);
         int space3 = statement.indexOf(' ', space2 + 1);
 
         validateIndexes(space1, paren1, paren2, space2, space3);
 
-        value = Integer.parseInt(statement.substring(paren1 + 1, paren2));
-        String thingIdentifier = statement.substring(space3 + 1);
+        expression = statement.substring(paren1 + 1, paren2);
 
-        this.identifier = thingIdentifier;
+        this.identifier = statement.substring(space3 + 1);
     }
 
     private void validateAssignmentStatement(String statement) throws IllegalArgumentException {
@@ -51,7 +46,8 @@ public class Int32Literal implements Instruction {
 
     @Override
     public void execute(Set<Variable> variables) {
-        Variable variable = new Variable(identifier, new Int32(value));
+        ExpressionEvaluator ee = new ExpressionEvaluator();
+        Variable variable = new Variable(identifier, ee.evaluate(expression, variables));
         variables.add(variable);
     }
 

@@ -50,6 +50,6 @@ public class BooleanEvaluator {
     }
 
     private Variable getVariable(String identifier, Set<Variable> variables) {
-        return variables.stream().filter(v -> v.identifier.equals(identifier)).findFirst().get();
+        return variables.stream().filter(v -> v.getIdentifier().equals(identifier)).findFirst().get();
     }
 }

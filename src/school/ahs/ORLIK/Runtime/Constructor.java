@@ -39,14 +39,14 @@ public class Constructor extends Thing {
         while (thingIterator.hasNext() && parameterIterator.hasNext()) {
             Thing thing = thingIterator.next();
             Parameter parameter = parameterIterator.next();
-            if (thing.blueprint.get() != parameter.blueprint) {
+            if (thing.getBlueprint().get() != parameter.getBlueprint()) {
                 throw new IllegalArgumentException("Invalid argument blueprints.");
             }
 
-            variables.add(new Variable(parameter.identifier, thing));
+            variables.add(new Variable(parameter.getIdentifier(), thing));
         }
 
-        Thing thing = new Thing(blueprint, variables, blueprint.functions);
+        Thing thing = new Thing(blueprint, variables, blueprint.getFunctions());
 
         block.execute(variables);
 

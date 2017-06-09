@@ -16,7 +16,7 @@ public class Int32 extends Thing {
 
     private static Blueprint blueprint;
 
-    public static Blueprint getBlueprint() {
+    public static Blueprint getInt32Blueprint() {
         return blueprint;
     }
 

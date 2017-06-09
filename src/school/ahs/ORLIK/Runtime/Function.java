@@ -35,7 +35,7 @@ public class Function extends Thing {
         while (thingIterator.hasNext() && parameterIterator.hasNext()) {
             Thing thing = thingIterator.next();
             Parameter parameter = parameterIterator.next();
-            if (thing.blueprint.get() != parameter.blueprint) {
+            if (thing.getBlueprint().get() != parameter.getBlueprint()) {
                 throw new IllegalArgumentException("Invalid argument blueprints.");
             }
 
@@ -45,7 +45,7 @@ public class Function extends Thing {
         block.execute(variables);
         if (returns != null) {
             Variable returnsVariable = variables.stream().filter(v -> v.getIdentifier().equals("return")).findFirst().orElseThrow(() -> new IllegalArgumentException());
-            if (returnsVariable.getThing().blueprint.get() != returns) {
+            if (returnsVariable.getThing().getBlueprint().get() != returns) {
                 throw new IllegalArgumentException();
             }
             return Optional.of(returnsVariable.getThing());
