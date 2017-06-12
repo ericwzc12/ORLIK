@@ -44,6 +44,11 @@ Profanity is NOT ALLOWED when writing code and will result in a SWEAR JAR!
 Write code in a .ORLIK file. To run your code, set the arguments for the Driver's main method to the file
 path.
 
+OR
+
+Use the jar file. The only argument you should pass should be the filename of the ORLIK code. The extension does not
+matter. 
+
 -----------------------------------------------------------------------------------------------------------
 
 ===========================
