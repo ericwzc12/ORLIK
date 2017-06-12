@@ -1,4 +1,4 @@
-------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
    ____  _____  _      _____ _  __
   / __ \|  __ \| |    |_   _| |/ /
  | |  | | |__) | |      | | | ' /
@@ -6,7 +6,7 @@
  | |__| | | \ \| |____ _| |_| . \
   \____/|_|  \_\______|_____|_|\_\
 
-------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 
 ==========================
           SYNTAX
@@ -25,14 +25,15 @@ While loops are defined as follows:
     O(<conditional>) {<code>}
 
 Printing is done as follows:
-    print(<text>); //print prints out what's in between the parenthesis exactly as you see it, replacing any variable
-    identifiers with its value.
+    print(<text>); //print prints out what's in between the parenthesis exactly as you see it, replacing
+    any variable identifiers with its value.
 
 Supported operators are + and -
 
-NOTE: A variable with a value of 0 is considered "false". A variable with any other value is considered "true".
+NOTE: A variable with a value of 0 is considered "false". A variable with any other value is considered
+"true".
 NOTE: Ignore any red text, it was used for debugging and we didn't remove it.
-------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 
 ==========================
           CODING
@@ -40,9 +41,10 @@ NOTE: Ignore any red text, it was used for debugging and we didn't remove it.
 
 Profanity is NOT ALLOWED when writing code and will result in a SWEAR JAR!
 
-Write code in a .ORLIK file. To run your code, set the arguments for the Driver's main method to the file path.
+Write code in a .ORLIK file. To run your code, set the arguments for the Driver's main method to the file
+path.
 
-------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
 
 ===========================
       EXAMPLE PROGRAM
@@ -60,6 +62,8 @@ givemeanew Int32(swearJar - money) called candy;
 print(swearJar, money, candy);
 mainRunsTheProgram(candy);
 
-this first creates a new Int32 called candy with the value of 1.
+this first creates a new Int32 called swearJar with the value of 3, a new Int32 called money with the
+value of 2. Then it creates an Int32 with the value of swearJar - money, or 1, called candy.
 then it calls the function mainRunsTheProgram with the parameter of candy.
-the if statement inside mainRunsTheProgram checks to see if candy is a 0. If it is, the programs prints "airheads"
+the if statement inside mainRunsTheProgram checks to see if candy is a 0. If it is, the programs prints
+"airheads"
