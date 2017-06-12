@@ -1,0 +1,11 @@
+do mainRunsTheProgram now(Int32 called candy){
+    anybodywantsome(candy){
+        print(airheads);
+    }
+}
+
+givemeanew Int32(3) called swearJar;
+givemeanew Int32(2) called money;
+givemeanew Int32(swearJar - money) called candy;
+print(swearJar, money, candy);
+mainRunsTheProgram(candy);

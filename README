@@ -13,7 +13,7 @@
 ==========================
 
 Variables are defined as follows:
-    givemeanew <type>(value) called <identifier>
+    givemeanew <type>(value OR expression) called <identifier>
 
 Functions are defined as follows:
     do <identifier> now(<type> called <identifier>...) {<code>}
@@ -25,9 +25,13 @@ While loops are defined as follows:
     O(<conditional>) {<code>}
 
 Printing is done as follows:
-    print(<text>); //print prints out what's in between the parenthesis exactly as you see it.
+    print(<text>); //print prints out what's in between the parenthesis exactly as you see it, replacing any variable
+    identifiers with its value.
+
+Supported operators are + and -
 
 NOTE: A variable with a value of 0 is considered "false". A variable with any other value is considered "true".
+NOTE: Ignore any red text, it was used for debugging and we didn't remove it.
 ------------------------------------------------------------------------------------------------------------------------
 
 ==========================
@@ -50,6 +54,12 @@ do mainRunsTheProgram now(Int32 called candy){
     }
 }
 
-givemeanew Int32(1) called candy;
+givemeanew Int32(3) called swearJar;
+givemeanew Int32(2) called money;
+givemeanew Int32(swearJar - money) called candy;
+print(swearJar, money, candy);
+mainRunsTheProgram(candy);
 
 this first creates a new Int32 called candy with the value of 1.
+then it calls the function mainRunsTheProgram with the parameter of candy.
+the if statement inside mainRunsTheProgram checks to see if candy is a 0. If it is, the programs prints "airheads"
